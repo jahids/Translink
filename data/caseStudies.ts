@@ -23,7 +23,7 @@ export const caseStudies = [
     test_img:
       "https://cdn.prod.website-files.com/62528d398a42424ab6390ee1/667adecbe7684da501b70952_image%2014.jpg",
     testimonial: `"TransLink delivered a world-class e-commerce platform on time and within budget. Our conversion rate increased by 42% in the first month after launch."`,
-    founder_name: "Sarah Chen",
+    founder_name: "Tatsuya Matsuda",
     position: "CEO & Co-Founder",
   },
   {

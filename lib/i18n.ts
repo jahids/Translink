@@ -12,6 +12,11 @@ export const translations = {
       aboutDesc: "Learn more about our company",
       blogDesc: "Read our latest insights and research",
       contactDesc: "Get in touch with TransLink",
+      companyNav: "Company",
+      ourStory: "Our Story",
+      ourStoryDesc: "Learn who we are",
+      companyProfile: "Company Profile",
+      companyProfileDesc: "Registration & company details",
     },
     hero: {
       badge: "Software Agency",
@@ -236,6 +241,23 @@ export const translations = {
         position: "Head of Growth",
       },
     ],
+    company: {
+      badge: "Company Details",
+      heading: "Trans Link Co., Ltd.",
+      description: "A next-generation software agency bridging Japan and the global market.",
+      info: [
+        { label: "Company Name", value: "Trans Link株式会社" },
+        { label: "Representative Director", value: "Tatsuya Matsuda" },
+        { label: "Location", value: "北区王子◯◯" },
+        { label: "Capital", value: "¥5,000,000" },
+      ],
+      marketplaceHeading: "Shop Our Products",
+      marketplaceDesc: "Find us on Japan's leading e-commerce platforms.",
+      marketplaces: [
+        { name: "楽天ショッピング", platform: "Rakuten", href: "#" },
+        { name: "Yahoo!ショッピング", platform: "Yahoo! Shopping", href: "#" },
+      ],
+    },
     blogPostsData: [
       {
         title: "How We Built a 300k MAU E-commerce Platform in 12 Weeks",
@@ -290,6 +312,11 @@ export const translations = {
       aboutDesc: "会社についてもっと知る",
       blogDesc: "最新のインサイトをご覧ください",
       contactDesc: "TransLinkにお問い合わせ",
+      companyNav: "会社情報",
+      ourStory: "私たちのストーリー",
+      ourStoryDesc: "私たちについて知る",
+      companyProfile: "会社概要",
+      companyProfileDesc: "会社登録・詳細情報",
     },
     hero: {
       badge: "ソフトウェアエージェンシー",
@@ -512,6 +539,23 @@ export const translations = {
         position: "グロースヘッド",
       },
     ],
+    company: {
+      badge: "会社概要",
+      heading: "Trans Link株式会社",
+      description: "日本とグローバル市場をつなぐ次世代ソフトウェアエージェンシー。",
+      info: [
+        { label: "会社名", value: "Trans Link株式会社" },
+        { label: "代表者", value: "Tatsuya Matsuda" },
+        { label: "所在地", value: "北区王子◯◯" },
+        { label: "資本金", value: "5,000,000¥" },
+      ],
+      marketplaceHeading: "ショップ",
+      marketplaceDesc: "日本の主要ECプラットフォームでご購入いただけます。",
+      marketplaces: [
+        { name: "楽天ショッピング", platform: "Rakuten", href: "#" },
+        { name: "Yahoo!ショッピング", platform: "Yahoo! Shopping", href: "#" },
+      ],
+    },
     blogPostsData: [
       {
         title: "12週間で月間30万MAUのECプラットフォームを構築した方法",

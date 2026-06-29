@@ -37,10 +37,10 @@ const blogPostMetadata: Record<string, BlogPostMetadata> = {
     readTime: "12 min read",
     publishDate: "Aug 16, 2025",
     author: {
-      name: "Sarah Chen",
+      name: "Tatsuya Matsuda",
       role: "AI Strategy Lead",
       avatar: "/api/placeholder/48/48",
-      bio: "Sarah is a leading expert in AI strategy with over 10 years of experience helping businesses transform through artificial intelligence. She specializes in AI implementation and digital transformation.",
+      bio: "Tatsuya Matsuda is a leading expert in AI strategy with over 10 years of experience helping businesses transform through artificial intelligence. He specializes in AI implementation and digital transformation.",
     },
     keyTakeaways: [
       "AI adoption is accelerating across industries, with 85% of companies planning to increase AI investments",

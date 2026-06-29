@@ -1,6 +1,7 @@
 "use client";
 
 import "@/lib/GSAPAnimations";
+import CompanySection from "@/components/landing/CompanySection";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { pageMetadata } from "@/lib/metadata";
 import { useGSAP } from "@gsap/react";
@@ -12,36 +13,24 @@ gsap.registerPlugin(ScrollTrigger);
 
 const AboutPage = () => {
   const { t } = useLanguage();
-  const heroContentRef = useRef<HTMLDivElement>(null);
+  const heroContentRef      = useRef<HTMLDivElement>(null);
   const workplaceContentRef = useRef<HTMLDivElement>(null);
-  const statsSectionRef = useRef<HTMLDivElement>(null);
-  const statsGridRef = useRef<HTMLDivElement>(null);
-  const imageGroupRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const statsSectionRef     = useRef<HTMLDivElement>(null);
+  const statsGridRef        = useRef<HTMLDivElement>(null);
+  const dividerRef          = useRef<HTMLDivElement>(null);
+  const imageGroupRefs      = useRef<(HTMLDivElement | null)[]>([]);
 
   useGSAP(() => {
-    if (heroContentRef.current) {
-      gsap.effects.fadeUpOnScroll(heroContentRef.current, {
-        duration: 0.8,
-        yOffset: 30,
-        start: "top 85%",
-      });
-    }
+    const targets: [React.RefObject<HTMLElement | HTMLDivElement | null>, object][] = [
+      [heroContentRef,      { duration: 0.8, yOffset: 30, start: "top 85%" }],
+      [workplaceContentRef, { duration: 0.8, yOffset: 30, start: "top 85%" }],
+      [statsSectionRef,     { duration: 0.8, yOffset: 30, start: "top 85%" }],
+      [dividerRef,          { duration: 0.7, yOffset: 20, start: "top 88%" }],
+    ];
 
-    if (workplaceContentRef.current) {
-      gsap.effects.fadeUpOnScroll(workplaceContentRef.current, {
-        duration: 0.8,
-        yOffset: 30,
-        start: "top 85%",
-      });
-    }
-
-    if (statsSectionRef.current) {
-      gsap.effects.fadeUpOnScroll(statsSectionRef.current, {
-        duration: 0.8,
-        yOffset: 30,
-        start: "top 85%",
-      });
-    }
+    targets.forEach(([ref, config]) => {
+      if (ref.current) gsap.effects.fadeUpOnScroll(ref.current, config);
+    });
 
     if (statsGridRef.current) {
       gsap.effects.staggerFadeUpOnScroll(statsGridRef.current, {
@@ -62,9 +51,7 @@ const AboutPage = () => {
       }
     });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    // useGSAP auto-reverts its GSAP context on unmount
   }, []);
 
   return (
@@ -78,6 +65,7 @@ const AboutPage = () => {
       />
 
       <main id="main-content" role="main">
+        {/* ── Our Story ── */}
         <section className="py-32 mx-auto max-w-6xl px-5" aria-labelledby="about-heading">
           <div className="container">
             <div className="flex flex-col items-center justify-start gap-6 lg:flex-row">
@@ -201,6 +189,22 @@ const AboutPage = () => {
             </section>
           </div>
         </section>
+
+        {/* ── Section divider ── */}
+        <div ref={dividerRef} className="mx-auto max-w-6xl px-5" aria-hidden="true">
+          <div className="flex items-center gap-4">
+            <div className="h-px flex-1 bg-border" />
+            <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60 px-2">
+              {t.nav.companyProfile}
+            </span>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+        </div>
+
+        {/* ── Company Profile ── */}
+        <div id="company-profile">
+          <CompanySection />
+        </div>
       </main>
     </>
   );

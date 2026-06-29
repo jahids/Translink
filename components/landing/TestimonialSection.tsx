@@ -6,6 +6,7 @@ import { caseStudies } from "@/data/caseStudies";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Layers, TrendingUp, Users2 } from "lucide-react";
 import { useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -19,7 +20,6 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ index }) => {
   const base = caseStudies[index];
   const tx = t.caseStudiesData[index];
 
-  // Use translated testimonial; only render if it exists
   const testimonial = tx?.testimonial ?? base?.testimonial;
   if (!testimonial || !testimonial.trim()) return null;
 
@@ -69,48 +69,80 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ index }) => {
   );
 };
 
+const statsConfig = [
+  { num: 120, prefix: "",  suffix: "+",   icon: Layers,     key: "projects" as const },
+  { num: 50,  prefix: "",  suffix: "+",   icon: Users2,     key: "clients"  as const },
+  { num: 2,   prefix: "$", suffix: "M+",  icon: TrendingUp, key: "revenue"  as const },
+];
+
 function Testimonial() {
   const { t } = useLanguage();
-  const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLElement>(null);
+  const sectionRef    = useRef<HTMLElement>(null);
+  const headingRef    = useRef<HTMLDivElement>(null);
+  const gridRef       = useRef<HTMLDivElement>(null);
+  const statsRef      = useRef<HTMLElement>(null);
+  const statCardsRef  = useRef<HTMLDivElement>(null);
+  const counterRefs   = useRef<(HTMLSpanElement | null)[]>([]);
 
   useGSAP(() => {
     if (headingRef.current) {
       gsap.effects.fadeUpOnScroll(headingRef.current, {
         start: "top 80%",
         duration: 0.8,
-        markers: false,
       });
     }
 
-    if (gridRef.current && gsap.effects?.fadeUpOnScroll) {
+    if (gridRef.current) {
       const cards = gridRef.current.querySelectorAll("article");
       cards.forEach((card, index) => {
         gsap.effects.fadeUpOnScroll(card as Element, {
           start: "top 92%",
           duration: 0.7,
           delay: Math.min(index * 0.04, 0.3),
-          markers: false,
         });
       });
     }
 
-    if (statsRef.current && gsap.effects?.fadeUpOnScroll) {
-      const items = statsRef.current.querySelectorAll('[data-stat-item="true"]');
-      items.forEach((el) => {
-        gsap.effects.fadeUpOnScroll(el as Element, {
-          start: "top 95%",
-          duration: 0.6,
-          markers: false,
-        });
+    // Stat cards stagger in
+    if (statCardsRef.current) {
+      gsap.effects.staggerFadeUpOnScroll(statCardsRef.current, {
+        start: "top 85%",
+        duration: 0.65,
+        yOffset: 35,
+        stagger: 0.14,
       });
     }
 
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
+    // Number counter animations — trigger on the section so they fire
+    // after the stagger fade-in, not while elements are still hidden
+    ScrollTrigger.create({
+      trigger: statsRef.current,
+      start: "top 78%",
+      once: true,
+      onEnter: () => {
+        counterRefs.current.forEach((el, i) => {
+          if (!el) return;
+          const { num, prefix, suffix } = statsConfig[i];
+          const proxy = { val: 0 };
+
+          gsap.to(proxy, {
+            val: num,
+            duration: 2,
+            ease: "power3.out",
+            delay: i * 0.2,
+            onUpdate() {
+              el.textContent = `${prefix}${Math.round(proxy.val)}${suffix}`;
+            },
+            onComplete() {
+              // guarantee final value even if rounding drifts
+              el.textContent = `${prefix}${num}${suffix}`;
+            },
+          });
+        });
+      },
+    });
+
+    // useGSAP auto-reverts its GSAP context on unmount
   }, []);
 
   return (
@@ -147,52 +179,67 @@ function Testimonial() {
           ))}
         </div>
 
+        {/* Stats strip */}
         <section
-          className="mt-10 sm:mt-12 md:mt-14 lg:mt-16"
+          ref={statsRef}
+          className="mt-12 sm:mt-16 md:mt-20"
           aria-labelledby="stats-heading"
           role="region"
-          ref={statsRef}
         >
-          <h3 id="stats-heading" className="sr-only">
-            Impact metrics
-          </h3>
-          <div className="mx-auto max-w-7xl">
-            <div className="flex flex-col divide-y divide-gray-200 sm:divide-y-0 sm:flex-row sm:divide-x">
-              <div
-                className="flex flex-1 flex-col items-start px-4 py-4 sm:items-center sm:px-6 sm:py-6 md:py-0"
-                data-stat-item="true"
-              >
-                <div className="text-heading text-3xl font-semibold sm:text-4xl md:text-5xl">
-                  {t.testimonials.stats.projects.value}
-                </div>
-                <p className="text-label mt-1 text-sm sm:mt-2 sm:text-base">
-                  {t.testimonials.stats.projects.label}
-                </p>
-              </div>
+          <h3 id="stats-heading" className="sr-only">Impact metrics</h3>
 
-              <div
-                className="flex flex-1 flex-col items-start px-4 py-4 sm:items-center sm:px-6 sm:py-6 md:py-0"
-                data-stat-item="true"
-              >
-                <div className="text-heading text-3xl font-semibold sm:text-4xl md:text-5xl">
-                  {t.testimonials.stats.clients.value}
-                </div>
-                <p className="text-label mt-1 text-sm sm:mt-2 sm:text-base">
-                  {t.testimonials.stats.clients.label}
-                </p>
-              </div>
+          <div
+            ref={statCardsRef}
+            className="relative overflow-hidden rounded-2xl bg-[rgb(29,39,54)]"
+          >
+            {/* Decorative radial glow */}
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(ellipse 60% 80% at 80% 0%, rgba(255,255,255,0.045) 0%, transparent 70%), radial-gradient(ellipse 40% 60% at 10% 100%, rgba(255,255,255,0.025) 0%, transparent 70%)",
+              }}
+              aria-hidden="true"
+            />
 
-              <div
-                className="flex flex-1 flex-col items-start px-4 py-4 sm:items-center sm:px-6 sm:py-6 md:py-0"
-                data-stat-item="true"
-              >
-                <div className="text-heading text-3xl font-semibold sm:text-4xl md:text-5xl">
-                  {t.testimonials.stats.revenue.value}
-                </div>
-                <p className="text-label mt-1 text-sm sm:mt-2 sm:text-base">
-                  {t.testimonials.stats.revenue.label}
-                </p>
-              </div>
+            <div className="relative grid grid-cols-1 sm:grid-cols-3">
+              {statsConfig.map((stat, i) => {
+                const Icon = stat.icon;
+                const label = t.testimonials.stats[stat.key].label;
+                return (
+                  <div
+                    key={stat.key}
+                    className={`flex flex-col items-center gap-3 px-8 py-10 text-center sm:py-14 ${
+                      i < statsConfig.length - 1
+                        ? "border-b border-white/8 sm:border-b-0 sm:border-r"
+                        : ""
+                    }`}
+                    aria-label={`${stat.prefix}${stat.num}${stat.suffix} — ${label}`}
+                  >
+                    {/* Icon badge */}
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/8">
+                      <Icon className="h-4 w-4 text-white/50" aria-hidden="true" />
+                    </span>
+
+                    {/* Animated number */}
+                    <p className="text-5xl font-black leading-none tracking-tight text-white sm:text-6xl">
+                      <span
+                        ref={(el) => { counterRefs.current[i] = el; }}
+                      >
+                        {stat.prefix}{stat.num}{stat.suffix}
+                      </span>
+                    </p>
+
+                    {/* Thin accent rule */}
+                    <span className="h-px w-8 rounded-full bg-white/20" aria-hidden="true" />
+
+                    {/* Label */}
+                    <p className="max-w-[160px] text-xs font-medium uppercase tracking-widest text-white/40">
+                      {label}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>

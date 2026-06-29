@@ -1,4 +1,5 @@
 import CaseStudiesSection from "@/components/landing/CaseStudiesSection";
+import CompanySection from "@/components/landing/CompanySection";
 import ContactSection from "@/components/landing/ContactSection";
 import HeroSection from "@/components/landing/HeroSection";
 import ProcessSection from "@/components/landing/ProcessSection";
@@ -16,6 +17,7 @@ export default function Home() {
         <CaseStudiesSection />
         <ProcessSection />
         <TestimonialSection />
+        <CompanySection />
         <ContactSection />
       </div>
     </main>
