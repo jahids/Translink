@@ -248,14 +248,14 @@ export const translations = {
       info: [
         { label: "Company Name", value: "Trans Link株式会社" },
         { label: "Representative Director", value: "Tatsuya Matsuda" },
-        { label: "Location", value: "北区王子◯◯" },
+        { label: "Location", value: "〒114-0002 東京都北区王子3-1-16K戸建" },
         { label: "Capital", value: "¥5,000,000" },
       ],
       marketplaceHeading: "Shop Our Products",
       marketplaceDesc: "Find us on Japan's leading e-commerce platforms.",
       marketplaces: [
-        { name: "楽天ショッピング", platform: "Rakuten", href: "#" },
-        { name: "Yahoo!ショッピング", platform: "Yahoo! Shopping", href: "#" },
+        { name: "楽天ショッピング", platform: "Rakuten", href: "https://www.rakuten.co.jp/category/551169/?scid=sp_kwa_pmax&icm_acid=255-776-8501&icm_cid=23320714004&icm_agid=&ifd=57&iasid=wem_icbs_&gad_source=1&gad_campaignid=23320713773&gbraid=0AAAAADoVjpgTcvipXmNoLKOSO4loj1vOb&gclid=EAIaIQobChMI3b_anZKslQMV9-QWBR3djxCXEAAYASAAEgLK9fD_BwE" },
+        { name: "Yahoo!ショッピング", platform: "Yahoo! Shopping", href: "https://shopping.yahoo.co.jp/?__ysp=5Zu644G%2B44KL5Zyf&sc_e=ad_listing_gsa_dsa_i_shp_gcate&gad_source=1&gad_campaignid=23883568742&gbraid=0AAAAAC2i68-EsYYCVOn7wzhVaVdKrC9jw&gclid=EAIaIQobChMIjr2ki5KslQMVDmQPAh29vgQrEAAYASAAEgLmS_D_BwE" },
       ],
     },
     blogPostsData: [
@@ -546,14 +546,14 @@ export const translations = {
       info: [
         { label: "会社名", value: "Trans Link株式会社" },
         { label: "代表者", value: "Tatsuya Matsuda" },
-        { label: "所在地", value: "北区王子◯◯" },
+        { label: "所在地", value: "〒114-0002 東京都北区王子3-1-16K戸建" },
         { label: "資本金", value: "5,000,000¥" },
       ],
       marketplaceHeading: "ショップ",
       marketplaceDesc: "日本の主要ECプラットフォームでご購入いただけます。",
       marketplaces: [
-        { name: "楽天ショッピング", platform: "Rakuten", href: "#" },
-        { name: "Yahoo!ショッピング", platform: "Yahoo! Shopping", href: "#" },
+        { name: "楽天ショッピング", platform: "Rakuten", href: "https://www.rakuten.co.jp/category/551169/?scid=sp_kwa_pmax&icm_acid=255-776-8501&icm_cid=23320714004&icm_agid=&ifd=57&iasid=wem_icbs_&gad_source=1&gad_campaignid=23320713773&gbraid=0AAAAADoVjpgTcvipXmNoLKOSO4loj1vOb&gclid=EAIaIQobChMI3b_anZKslQMV9-QWBR3djxCXEAAYASAAEgLK9fD_BwE" },
+        { name: "Yahoo!ショッピング", platform: "Yahoo! Shopping", href: "https://shopping.yahoo.co.jp/?__ysp=5Zu644G%2B44KL5Zyf&sc_e=ad_listing_gsa_dsa_i_shp_gcate&gad_source=1&gad_campaignid=23883568742&gbraid=0AAAAAC2i68-EsYYCVOn7wzhVaVdKrC9jw&gclid=EAIaIQobChMIjr2ki5KslQMVDmQPAh29vgQrEAAYASAAEgLmS_D_BwE" },
       ],
     },
     blogPostsData: [
